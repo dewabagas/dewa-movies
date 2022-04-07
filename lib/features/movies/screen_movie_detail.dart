@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ScreenMovieDetail extends StatelessWidget {
   final String movieId;
@@ -100,7 +101,50 @@ class ScreenMovieDetail extends StatelessWidget {
                           movieFlexibleSpacebarComponent(
                               movie: _detailsController.movieDetail.value,
                               height: 200),
-                          SizedBox(height: 18.h),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 18, 0),
+                            child: Row(
+                              children: [
+                                CircularPercentIndicator(
+                                  radius: 25,
+                                  percent: (_detailsController
+                                          .movieDetail.value.voteAverage! /
+                                      10),
+                                  curve: Curves.ease,
+                                  animation: true,
+                                  animationDuration: 800,
+                                  progressColor: ColorConstants.appBackground,
+                                  center: Text(
+                                    '${(_detailsController.movieDetail.value.voteAverage! * 10).toInt()}%',
+                                    style: TextStyle(
+                                      color: ColorConstants.appBackgroundDarker,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 6),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: ColorConstants.appBackground
+                                        .withOpacity(0.9),
+                                    borderRadius: Corners.lgBorder,
+                                  ),
+                                  child: Text(
+                                    '${_detailsController.movieDetail.value.voteCount}',
+                                    style: TextStyles.titleAvenir.copyWith(color: Colors.white),
+                                  ),
+                                ),
+                                SizedBox(width: 4.w),
+                                Text(
+                                  'Vote\nCounts',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyles.subtitleAvenir.copyWith(fontWeight: FontWeight.w700),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -137,6 +181,4 @@ var movieTabs = <Widget>[
   TabMovieAbout(),
   TabMovieCasts(),
   TabMovieReviews(),
-  // MovieRecommendedTab(),
-  // MovieSimilarTab(),
 ];

@@ -16,6 +16,7 @@ Widget cardMovieThumbnail({
 
   return GestureDetector(
     onTap: () {
+      print('movie id di thumbnail : ${movie.id}');
       _controller.setMovieId('${movie.id!}');
 
       Get.offAllNamed(Routes.MOVIE_DETAIL,

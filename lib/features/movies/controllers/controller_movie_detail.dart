@@ -65,16 +65,12 @@ class ControllerMovieDetail extends BaseController {
 
 // movie/tv basic details
   void getDetails({required String resultType, required String id}) async {
-    print('result type nya : ${resultType}');
-    print('movie id nya bro : ${id}');
+    print('movie id getDetails : ${id}');
     switch (resultType) {
       case ApiStrings.movie:
         movieDetailState.value = ViewState.busy;
         await _service.getDetails(resultType: resultType, id: id).then((value) {
-          print('value nya bro ${value}');
-          // if (value != null) {
           movieDetail.value = MovieDetailsModel.fromJson(value);
-          // ignore: avoid_print
           print('${movieDetail.value.title} MOVIE DETAILS');
           movieDetailState.value = ViewState.retrived;
           update(['movie_about', 'movie_details']);

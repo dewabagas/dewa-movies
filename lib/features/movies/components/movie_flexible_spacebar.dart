@@ -58,7 +58,7 @@ Widget movieFlexibleSpacebarComponent({
                     child: LoaderSpinner().fadingCircleSpinner,
                   ),
                   onErrorBuilder:  Center(
-                    child: Text('error while initializing data...'),
+                    child: Text(Applications.errorLoad),
                   ),
                   onSuccessBuilder: ShaderMask(
                     shaderCallback: (rect) {
