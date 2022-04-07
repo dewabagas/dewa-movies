@@ -8,6 +8,7 @@ class AppBinding extends Bindings {
   @override
   void dependencies() async {
     Get.lazyPut(() => ControllerMovieDetail(), fenix: true);
+    Get.lazyPut(() => ControllerMovieResults(), fenix: true);
     Get.lazyPut(() => ControllerUtility(), fenix: true);
     Get.lazyPut(() => ControllerConfiguration(), fenix: true);
 
