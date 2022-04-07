@@ -12,8 +12,6 @@ class ServiceConfiguration extends ServiceBase {
           path: "/3/configuration",
           header: setHeaders(),
           queryParameter: setQueryParameters());
-      // ignore: avoid_print
-      // print('CONFIGURATION STATUS => ${response.statusCode}');
 
       return decodeResponse(response);
     } on SocketException {

@@ -24,13 +24,10 @@ class ServiceBase {
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTVlYmVmNThiMDhhZDgyNWYyNDU5MTg2MGIyNjk5MCIsInN1YiI6IjYwYTM1OTI2NzMxNGExMDA3OGZjZTRkOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VJG0GMDEpcYQBtm5VZlCHEmqTY5jH4kfIkYhosKqOA0"
   };
 
-// headers
   Map<String, String> setHeaders({Map<String, String>? header}) {
     headers.addAll(header ?? {});
     return headers;
   }
-
-// query parameters
 
   Map<String, String> setQueryParameters({Map<String, String>? query}) {
     queryParma = {"api_key": api};
@@ -39,7 +36,6 @@ class ServiceBase {
     return queryParma;
   }
 
-// response
   dynamic returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
@@ -106,12 +102,6 @@ class ServiceBase {
         break;
     }
 
-    // if (response.statusCode == 401 || response.statusCode == 403) {
-    //   Auth().logout();
-    //   // Get.offAll(page);
-
-    //   return returnResponse(response);
-    // }
     return returnResponse(response);
   }
 

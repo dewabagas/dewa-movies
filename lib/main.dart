@@ -9,13 +9,11 @@ import 'package:dewa_movies/shared/helpers/utils.dart';
 
 
 import 'app_binding.dart';
-import 'di.dart';
 import 'routes/routes.dart';
 import 'theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DenpendencyInjection.init();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
