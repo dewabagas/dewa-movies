@@ -17,6 +17,7 @@ class TabMovieAbout extends StatelessWidget {
 
   TabMovieAbout({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
