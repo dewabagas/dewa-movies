@@ -2,6 +2,8 @@ import 'package:dewa_movies/controllers/controller_utility.dart';
 import 'package:dewa_movies/features/movies/components/button_hide.dart';
 import 'package:dewa_movies/features/movies/components/header_text.dart';
 import 'package:dewa_movies/shared/constants/colors.dart';
+import 'package:dewa_movies/shared/constants/strings.dart';
+import 'package:dewa_movies/shared/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,28 +15,25 @@ Widget storylineTextBuilder(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       headerBuilder(headerText: headerText ?? "Story Line"),
-     SizedBox(height: 8),
+      SizedBox(height: 8),
       text == ""
           ? Text(
-              'No data at the Moment',
-              style: TextStyle(color: ColorConstants.appBackground.withOpacity(0.6)),
+              Applications.errorEmpty,
+              style: TextStyle(
+                  color: ColorConstants.appBackground.withOpacity(0.6)),
             )
           : _utilityController.showText != true
               ? Text(
                   text,
                   maxLines: maxLines ?? 4,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: ColorConstants.appBackground.withOpacity(0.6),
-                    fontSize: 14,
-                  ),
+                  style: TextStyles.subtitlePoppins.copyWith(
+                      color: ColorConstants.appBackground.withOpacity(0.8)),
                 )
               : Text(
                   text,
-                  style: TextStyle(
-                    color: ColorConstants.appBackground.withOpacity(0.6),
-                    fontSize: 14,
-                  ),
+                  style: TextStyles.subtitlePoppins.copyWith(
+                      color: ColorConstants.appBackground.withOpacity(0.6)),
                 ),
       text == "" ? SizedBox.shrink() : toggleHideShowBtn(),
     ],

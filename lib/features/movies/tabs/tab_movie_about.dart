@@ -24,6 +24,7 @@ class TabMovieAbout extends StatelessWidget {
       id: 'movie_about',
       init: _detailsController,
       initState: (_) {
+        print(_resultsController.movieId);
         _detailsController.getOtherDetails(
             resultType: ApiStrings.movie,
             id: _resultsController.movieId,

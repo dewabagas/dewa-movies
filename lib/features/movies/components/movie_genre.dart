@@ -1,6 +1,7 @@
 import 'package:dewa_movies/features/movies/components/header_text.dart';
 import 'package:dewa_movies/features/movies/models/model_movie_base.dart';
 import 'package:dewa_movies/shared/constants/colors.dart';
+import 'package:dewa_movies/shared/constants/styles.dart';
 import 'package:flutter/material.dart';
 
 Widget genreBuilder({required List<Genre> genres}) {
@@ -23,10 +24,7 @@ Widget genreBuilder({required List<Genre> genres}) {
               ),
               child: Text(
                 e.name ?? "",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorConstants.appBackground.withOpacity(0.7),
-                ),
+                style: TextStyles.subtitlePoppins.copyWith(color: ColorConstants.appBackground.withOpacity(0.7), fontWeight: FontWeight.w500),
               ),
             ),
           ),

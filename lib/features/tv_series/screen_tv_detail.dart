@@ -2,6 +2,7 @@ import 'package:dewa_movies/controllers/controller_utility.dart';
 import 'package:dewa_movies/features/home/controllers/controller_movie_results.dart';
 import 'package:dewa_movies/features/movies/controllers/controller_movie_detail.dart';
 import 'package:dewa_movies/features/tv_series/components/tv_flexible_spacebar.dart';
+import 'package:dewa_movies/features/tv_series/tabs/tab_tv_about.dart';
 import 'package:dewa_movies/routes/routes.dart';
 import 'package:dewa_movies/shared/constants/strings.dart';
 import 'package:dewa_movies/shared/helpers/helper_widget_builder.dart';
@@ -10,6 +11,7 @@ import 'package:dewa_movies/shared/widgets/loaders/loader_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ScreenTvDetail extends StatelessWidget {
   // final String tvId;
@@ -91,29 +93,83 @@ class ScreenTvDetail extends StatelessWidget {
                               tv: _detailsController.tvDetail.value,
                               height: 200,
                             ),
-
-                            // ),
-                            SizedBox(height: 18),
-
-                            // ratings / lists / bookmark options
-                            // tvFlexibleSpacebarOptions(
-                            //     controller: _detailsController),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(18, 18, 18, 0),
+                              child: Row(
+                                children: [
+                                  _detailsController
+                                              .tvDetail.value.voteAverage ==
+                                          null
+                                      ? SizedBox.shrink()
+                                      : CircularPercentIndicator(
+                                          radius: 25,
+                                          percent: (_detailsController
+                                                  .tvDetail
+                                                  .value
+                                                  .voteAverage! /
+                                              10),
+                                          curve: Curves.ease,
+                                          animation: true,
+                                          animationDuration: 800,
+                                          progressColor:
+                                              ColorConstants.appBackground,
+                                          center: Text(
+                                            '${(_detailsController.tvDetail.value.voteAverage! * 10).toInt()}%',
+                                            style: TextStyle(
+                                              color: ColorConstants
+                                                  .appBackgroundDarker,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                  Text(
+                                    'Vote\nAverage',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyles.subtitleAvenir
+                                        .copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                  SizedBox(width: 4.w),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 6),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: ColorConstants.appBackground
+                                          .withOpacity(0.9),
+                                      borderRadius: Corners.lgBorder,
+                                    ),
+                                    child: Text(
+                                      '${_detailsController.tvDetail.value.voteCount}',
+                                      style: TextStyles.titleAvenir
+                                          .copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.w),
+                                  Text(
+                                    'Vote\nCounts',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyles.subtitleAvenir
+                                        .copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
                       bottom: bottomTabbarComponent(tabMenuItems: tabMenuItems),
                     ),
-                    // GetBuilder(
-                    //   id: 'tabs',
-                    //   init: _utilityController,
-                    //   builder: (controller) => SliverList(
-                    //       delegate: SliverChildListDelegate.fixed([
-                    //     tvTabs[_utilityController.tabbarCurrentIndex],
-                    //     SizedBox(
-                    //       height: 120.h,
-                    //     )
-                    //   ])),
-                    // )
+                    GetBuilder(
+                      id: 'tabs',
+                      init: _utilityController,
+                      builder: (controller) => SliverList(
+                          delegate: SliverChildListDelegate.fixed([
+                        tvTabs[_utilityController.tabbarCurrentIndex],
+                        SizedBox(
+                          height: 120.h,
+                        )
+                      ])),
+                    )
                   ],
                 ),
                 // ),
@@ -133,10 +189,6 @@ var tabMenuItems = <String>[
 ];
 
 var tvTabs = <Widget>[
-  // TvAboutTab(),
-  // TvCastsTab(),
-  // SeasonsTab(),
-  // TvReviewTab(),
-  // TvRecommendedTab(),
-  // TvSimilarTab(),
+  TabTvAbout(),
+
 ];

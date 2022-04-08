@@ -5,8 +5,11 @@ import 'package:dewa_movies/features/movies/controllers/controller_movie_detail.
 import 'package:get/get.dart';
 
 class AppBinding extends Bindings {
+  AppBinding() {
+    dependencies();
+  }
   @override
-  void dependencies() async {
+  void dependencies() {
     Get.lazyPut(() => ControllerMovieDetail(), fenix: true);
     Get.lazyPut(() => ControllerMovieResults(), fenix: true);
     Get.lazyPut(() => ControllerUtility(), fenix: true);

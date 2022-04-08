@@ -1,28 +1,42 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dewa_movies/controllers/controller_configuration.dart';
 import 'package:dewa_movies/features/movies/components/header_text.dart';
-import 'package:dewa_movies/features/movies/models/model_movie_detail.dart';
+import 'package:dewa_movies/features/tv_series/models/model_tv_detail.dart';
 import 'package:dewa_movies/shared/constants/colors.dart';
-import 'package:dewa_movies/shared/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-Widget movieInfoBuilder({required MovieDetailsModel movieDetails}) {
+Widget tvInfoBuilder({required TvDetailsModel tvDetails}) {
+  final String? lastAirDate = tvDetails.lastAirDate == null
+      ? "-"
+      : DateFormat.yMMMMd().format(tvDetails.lastAirDate!);
+
+  final String? firstAirDate = tvDetails.firstAirDate == null
+      ? "-"
+      : DateFormat.yMMMMd().format(tvDetails.firstAirDate!);
+
   final _configurationController = Get.find<ControllerConfiguration>();
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      headerBuilder(headerText: "Movie Info"),
-      SizedBox(height: 12),
-      rowBuilder(title: "Title", text: movieDetails.title ?? "-"),
+      headerBuilder(headerText: "TV Show Info"),
+      const SizedBox(height: 12),
+      rowBuilder(title: "English Title", text: tvDetails.name ?? "-"),
+      rowBuilder(title: "Original Title", text: tvDetails.originalName ?? "-"),
+      rowBuilder(title: "First Air Date", text: firstAirDate ?? "-"),
+      rowBuilder(title: "Last Air Date", text: lastAirDate ?? "-"),
       rowBuilder(
-          title: "Original Title", text: movieDetails.originalTitle ?? "-"),
-      rowBuilder(title: "Status", text: movieDetails.status ?? "-"),
-      rowBuilder(title: "Runtime", text: '${movieDetails.runtime} mins'),
+          title: "Aired Episodes",
+          text: '${tvDetails.numberOfEpisodes ?? "-"} Episodes'),
       rowBuilder(
-          title: "Original Language",
-          text: movieDetails.originalLanguage ?? "-"),
+          title: "Runtime",
+          text:
+              '${tvDetails.episodeRunTime!.isEmpty ? "-" : tvDetails.episodeRunTime![0]} mins'),
+      rowBuilder(title: "Show Type", text: tvDetails.type ?? "-"),
+      rowBuilder(
+          title: "Original Language", text: tvDetails.originalLanguage ?? "-"),
       rowBuilder(
         title: "Production Countries",
         child: Wrap(
@@ -30,21 +44,20 @@ Widget movieInfoBuilder({required MovieDetailsModel movieDetails}) {
           spacing: 4,
           runSpacing: 4,
           children: List.from(
-            movieDetails.productionCountries!.map(
+            tvDetails.productionCountries!.map(
               (e) => e.name == null
-                  ? SizedBox.shrink()
+                  ? const SizedBox.shrink()
                   : Container(
-                      padding: EdgeInsets.symmetric(vertical: 6),
+                      padding: const EdgeInsets.symmetric(vertical: 6),
                       decoration: BoxDecoration(
-                        // color: ColorConstants.appBackgroundDarker.withOpacity(0.5),
+                        // color: ColorConstants.appBackground.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         e.name ?? "",
                         style: TextStyle(
                           fontSize: 14,
-                          color: ColorConstants.appBackgroundDarker
-                              .withOpacity(0.7),
+                          color: ColorConstants.appBackground.withOpacity(0.7),
                         ),
                       ),
                     ),
@@ -56,18 +69,17 @@ Widget movieInfoBuilder({required MovieDetailsModel movieDetails}) {
         title: "Companies",
         child: Wrap(
           alignment: WrapAlignment.start,
-          // spacing: 4,
+          // spacing: 2,
           runSpacing: 4,
           children: List.from(
-            movieDetails.productionCompanies!.map(
+            tvDetails.productionCompanies!.map(
               (e) => e.logoPath == null || e.logoPath!.isEmpty
                   ? SizedBox.shrink()
                   : Container(
                       margin: EdgeInsets.only(right: 4),
                       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                       decoration: BoxDecoration(
-                        color:
-                            ColorConstants.appBackgroundDarker.withOpacity(0.2),
+                        color: ColorConstants.appBackground.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: CachedNetworkImage(
@@ -91,8 +103,6 @@ Widget movieInfoBuilder({required MovieDetailsModel movieDetails}) {
           ),
         ),
       ),
-      rowBuilder(title: "Budget", text: '\$${movieDetails.budget}'),
-      rowBuilder(title: "Revenue", text: '\$${movieDetails.revenue}'),
     ],
   );
 }
@@ -107,8 +117,10 @@ Widget rowBuilder({required String title, String? text, Widget? child}) =>
             flex: 4,
             child: Text(
               title,
-              style: TextStyles.subtitlePoppins.copyWith(
-                  color: ColorConstants.appBackground.withOpacity(0.5), fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 14,
+                color: ColorConstants.appBackground.withOpacity(0.5),
+              ),
             ),
           ),
           SizedBox(width: 6),
@@ -117,8 +129,10 @@ Widget rowBuilder({required String title, String? text, Widget? child}) =>
             child: child ??
                 Text(
                   text ?? "-",
-                  style: TextStyles.subtitlePoppins.copyWith(
-                      color: ColorConstants.appBackground.withOpacity(0.7), fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: ColorConstants.appBackground.withOpacity(0.7),
+                  ),
                 ),
           ),
         ],

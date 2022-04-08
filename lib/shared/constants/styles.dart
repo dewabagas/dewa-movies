@@ -82,7 +82,18 @@ class TextStyles {
       color: ColorConstants.appBackground,
       letterSpacing: -1,
       height: 1.17);
+      
   static TextStyle get subtitleAvenir => avenir.copyWith(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
+      color: ColorConstants.appBackground);
+
+  static TextStyle get subtitlePoppins => poppins.copyWith(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
+      color: ColorConstants.appBackground);
+
+  static TextStyle get subtitleMontserrat => montserrat.copyWith(
       fontWeight: FontWeight.w400,
       fontSize: 14.sp,
       color: ColorConstants.appBackground);
