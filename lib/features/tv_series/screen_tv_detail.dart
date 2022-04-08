@@ -184,8 +184,6 @@ class ScreenTvDetail extends StatelessWidget {
 
 var tabMenuItems = <String>[
   "Overview",
-  "Cast",
-  "Reviews",
 ];
 
 var tvTabs = <Widget>[
