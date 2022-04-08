@@ -102,26 +102,39 @@ class ScreenMovieDetail extends StatelessWidget {
                               movie: _detailsController.movieDetail.value,
                               height: 200),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 18, 0),
+                            padding: EdgeInsets.fromLTRB(18, 18, 18, 0),
                             child: Row(
                               children: [
-                                CircularPercentIndicator(
-                                  radius: 25,
-                                  percent: (_detailsController
-                                          .movieDetail.value.voteAverage! /
-                                      10),
-                                  curve: Curves.ease,
-                                  animation: true,
-                                  animationDuration: 800,
-                                  progressColor: ColorConstants.appBackground,
-                                  center: Text(
-                                    '${(_detailsController.movieDetail.value.voteAverage! * 10).toInt()}%',
-                                    style: TextStyle(
-                                      color: ColorConstants.appBackgroundDarker,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                _detailsController
+                                            .movieDetail.value.voteAverage ==
+                                        null
+                                    ? SizedBox.shrink()
+                                    : CircularPercentIndicator(
+                                        radius: 25,
+                                        percent: (_detailsController.movieDetail
+                                                .value.voteAverage! /
+                                            10),
+                                        curve: Curves.ease,
+                                        animation: true,
+                                        animationDuration: 800,
+                                        progressColor:
+                                            ColorConstants.appBackground,
+                                        center: Text(
+                                          '${(_detailsController.movieDetail.value.voteAverage! * 10).toInt()}%',
+                                          style: TextStyle(
+                                            color: ColorConstants
+                                                .appBackgroundDarker,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                Text(
+                                  'Vote\nAverage',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyles.subtitleAvenir
+                                      .copyWith(fontWeight: FontWeight.w700),
                                 ),
+                                SizedBox(width: 4.w),
                                 Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 6),
@@ -133,14 +146,16 @@ class ScreenMovieDetail extends StatelessWidget {
                                   ),
                                   child: Text(
                                     '${_detailsController.movieDetail.value.voteCount}',
-                                    style: TextStyles.titleAvenir.copyWith(color: Colors.white),
+                                    style: TextStyles.titleAvenir
+                                        .copyWith(color: Colors.white),
                                   ),
                                 ),
                                 SizedBox(width: 4.w),
                                 Text(
                                   'Vote\nCounts',
                                   textAlign: TextAlign.center,
-                                  style: TextStyles.subtitleAvenir.copyWith(fontWeight: FontWeight.w700),
+                                  style: TextStyles.subtitleAvenir
+                                      .copyWith(fontWeight: FontWeight.w700),
                                 ),
                               ],
                             ),
